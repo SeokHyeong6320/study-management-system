@@ -1,0 +1,34 @@
+spring:
+  datasource:
+    url: jdbc:mariadb://127.0.0.1:3306/minicampus
+    username: root
+    password: root
+    driver-class-name: org.mariadb.jdbc.Driver
+  
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: your_gmail_id@gmail.com
+    password: your_gamil_password
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
+            
+logging:
+  level:
+    root: info
+    
+mybatis:
+  mapper-locations: mybatis/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
