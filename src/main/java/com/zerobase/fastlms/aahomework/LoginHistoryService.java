@@ -9,6 +9,6 @@ public interface LoginHistoryService {
 
     LoginHistoryDto saveLoginHistory(LoginHistory loginHistory);
 
-    List<LoginHistoryDto> findAllLoginHistory(String userId);
+    List<LoginHistoryDto> findUserLoginHistory(String userId);
 
 }

@@ -31,7 +31,7 @@ public class LoginHistoryServiceImpl implements LoginHistoryService{
     }
 
     @Override
-    public List<LoginHistoryDto> findAllLoginHistory(String userId) {
+    public List<LoginHistoryDto> findUserLoginHistory(String userId) {
         Member findMember = memberRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException
                         ("couldn't find member. userId->" + userId));

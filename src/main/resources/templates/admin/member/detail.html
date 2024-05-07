@@ -8,101 +8,172 @@
             width: 100%;
             border-collapse: collapse;
         }
+
         .detail table th, .detail table td {
-            border:solid 1px #000;
+            border: solid 1px #000;
+        }
+
+        .list table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .list table th {
+            border: solid 1px white;
+            border-bottom: 3px solid white;
+            background-color: #000000;
+            color: white;
+        }
+
+        .hOdd {
+            background-clip: padding-box;
+            background-color: #8d8d8d;
+            border-collapse: collapse;
+            border: solid 1px white;
+            padding-left: 10px;
+        }
+        .hEven {
+            background-clip: padding-box;
+            background-color: #dbdbdb;
+            border-collapse: collapse;
+            border: solid 1px white;
+        }
+
+        .hIndex {
+            width: 10%;
+        }
+        .hDt {
+            width: 15%;
+        }
+        .hIp {
+            width: 15%;
         }
 
     </style>
 </head>
 <body>
-    <div th:replace="/fragments/layout.html :: fragment-admin-body-menu"></div>
-    <h1>관리자 회원 관리 - 회원 상세 정보</h1>
+<div th:replace="/fragments/layout.html :: fragment-admin-body-menu"></div>
+<h1>관리자 회원 관리 - 회원 상세 정보</h1>
 
 
-    <div class="detail" >
+<div class="detail">
 
-        <table>
-            <tbody>
-                <tr>
-                    <th>아이디</th>
-                    <td>
-                        <p th:text="${member.userId}"></p>
-                    </td>
-                </tr>
-                <tr>
-                    <th>이름</th>
-                    <td>
-                        <p th:text="${member.userName}"></p>
-                    </td>
-                </tr>
-                <tr>
-                    <th>연락처</th>
-                    <td>
-                        <p th:text="${member.phone}"></p>
-                    </td>
-                </tr>
-                <tr>
-                    <th>가입일</th>
-                    <td>
-                        <p th:text="${member.regDt}"></p>
-                    </td>
-                </tr>
-                <tr>
-                    <th>이메일 인증</th>
-                    <td>
-                        <p th:text="${member.emailAuthYn}"></p>
-                    </td>
-                </tr>
-                <tr>
-                    <th>관리자 여부</th>
-                    <td>
-                        <p th:text="${member.adminYn}"></p>
-                    </td>
-                </tr>
-                <tr>
-                    <th>회원 상태</th>
-                    <td>
-                        <p>
-                            현재상태: <span th:text="${member.userStatus}"></span>
-                        </p>
-                        <div>
-                            <form method="post" action="/admin/member/status.do">
-                                <input th:value="${member.userId}" type="hidden" name="userId"/>
-                                <select name="userStatus">
-                                    <option value="REQ">가입승인중</option>
-                                    <option value="ING">정상이용중</option>
-                                    <option value="STOP">정지중</option>
-                                </select>
-                                <button type="submit">상태 변경</button>
-                            </form>
-                        </div>
-                    </td>
-                </tr>
+    <table>
+        <tbody>
+        <tr>
+            <th>아이디</th>
+            <td>
+                <p th:text="${member.userId}"></p>
+            </td>
+        </tr>
+        <tr>
+            <th>이름</th>
+            <td>
+                <p th:text="${member.userName}"></p>
+            </td>
+        </tr>
+        <tr>
+            <th>연락처</th>
+            <td>
+                <p th:text="${member.phone}"></p>
+            </td>
+        </tr>
+        <tr>
+            <th>가입일</th>
+            <td>
+                <p th:text="${member.regDt}"></p>
+            </td>
+        </tr>
+        <tr>
+            <th>이메일 인증</th>
+            <td>
+                <p th:text="${member.emailAuthYn}"></p>
+            </td>
+        </tr>
+        <tr>
+            <th>관리자 여부</th>
+            <td>
+                <p th:text="${member.adminYn}"></p>
+            </td>
+        </tr>
+        <tr>
+            <th>회원 상태</th>
+            <td>
+                <p>
+                    현재상태: <span th:text="${member.userStatus}"></span>
+                </p>
+                <div>
+                    <form method="post" action="/admin/member/status.do">
+                        <input th:value="${member.userId}" type="hidden"
+                               name="userId"/>
+                        <select name="userStatus">
+                            <option value="REQ">가입승인중</option>
+                            <option value="ING">정상이용중</option>
+                            <option value="STOP">정지중</option>
+                        </select>
+                        <button type="submit">상태 변경</button>
+                    </form>
+                </div>
+            </td>
+        </tr>
 
-                <tr>
-                    <th>비밀번호 초기화</th>
-                    <td>
-                        <div>
-                            <form method="post" action="/admin/member/password.do">
-                                <input th:value="${member.userId}" type="hidden" name="userId"/>
-                                <input type="text" name="password"/>
-                                <button type="submit">비밀번호 초기화</button>
-                            </form>
-                        </div>
-                    </td>
-                </tr>
+        <tr>
+            <th>비밀번호 초기화</th>
+            <td>
+                <div>
+                    <form method="post" action="/admin/member/password.do">
+                        <input th:value="${member.userId}" type="hidden"
+                               name="userId"/>
+                        <input type="text" name="password"/>
+                        <button type="submit">비밀번호 초기화</button>
+                    </form>
+                </div>
+            </td>
+        </tr>
 
 
-            </tbody>
-        </table>
+        </tbody>
+    </table>
 
-        <div>
-            <a href="list.do"> 목록 </a>
-
-        </div>
-
+    <div>
+        <a href="list.do"> 목록 </a>
 
     </div>
+
+
+</div>
+
+<!-- 로그인 기록 기능 추가 -->
+<div class="list">
+    <table>
+        <thead>
+        <tr>
+            <th>NO</th>
+            <th>로그인 일자</th>
+            <th>접속 IP</th>
+            <th>접속 UserAgent</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="h, stat : ${#numbers.sequence(loginHistories.size() - 1, 0, -1)}"
+                th:class="${stat.odd ? 'hOdd' : 'hEven'}">
+            <td th:class="hIndex">
+                <p th:text="${loginHistories.size() - stat.index}"></p>
+            </td>
+            <td th:class="hDt">
+                <p th:text="${#temporals.format(loginHistories[h].getLoginAt(), 'yyyy.MM.dd HH:mm')}"></p>
+            </td>
+            <td th:class="hIp">
+                <p th:text="${loginHistories[h].getConnectionIp()}"></p>
+            </td>
+            <td>
+                <p th:text="${loginHistories[h].getConnectionUserAgent()}"></p>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
 
 
 </body>

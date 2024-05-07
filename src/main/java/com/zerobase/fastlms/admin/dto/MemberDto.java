@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -35,6 +36,8 @@ public class MemberDto {
     private String zipcode;
     private String addr;
     private String addrDetail;
+
+    ///
 
     private LocalDateTime lastLoginDt;
     
