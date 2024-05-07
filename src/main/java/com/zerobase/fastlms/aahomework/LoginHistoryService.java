@@ -11,5 +11,4 @@ public interface LoginHistoryService {
 
     List<LoginHistoryDto> findAllLoginHistory(String userId);
 
-    LoginHistoryDto findLastLoginHistory(String userId);
 }

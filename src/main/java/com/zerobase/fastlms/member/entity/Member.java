@@ -1,5 +1,6 @@
 package com.zerobase.fastlms.member.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.zerobase.fastlms.aahomework.LoginHistory;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,10 +8,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -38,12 +41,14 @@ public class Member implements MemberCode {
     private boolean adminYn;
     
     private String userStatus;//이용가능한상태, 정지상태
-    
-    
+
     private String zipcode;
     private String addr;
     private String addrDetail;
 
-    @OneToMany(mappedBy = "member")
-    private List<LoginHistory> histories = new ArrayList<>();
+    @JsonFormat(pattern = "yyyy.MM.dd HH:mm")
+    private LocalDateTime lastLoginDt;
+
+    @OneToMany(mappedBy = "member", fetch = FetchType.EAGER)
+    private List<LoginHistory> histories = new LinkedList<>();
 }
