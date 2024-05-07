@@ -1,4 +1,4 @@
-package com.zerobase.fastlms.aahomework;
+package com.zerobase.fastlms.loginhistory.model;
 
 import com.zerobase.fastlms.member.entity.Member;
 import lombok.AllArgsConstructor;

@@ -1,5 +1,7 @@
-package com.zerobase.fastlms.aahomework;
+package com.zerobase.fastlms.loginhistory.filter;
 
+import com.zerobase.fastlms.loginhistory.model.LoginHistory;
+import com.zerobase.fastlms.loginhistory.service.LoginHistoryService;
 import com.zerobase.fastlms.member.entity.Member;
 import com.zerobase.fastlms.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -8,7 +10,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.servlet.support.RequestContextUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

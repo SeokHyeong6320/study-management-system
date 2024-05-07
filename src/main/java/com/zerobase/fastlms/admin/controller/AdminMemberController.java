@@ -1,14 +1,13 @@
 package com.zerobase.fastlms.admin.controller;
 
 
-import com.zerobase.fastlms.aahomework.LoginHistoryDto;
-import com.zerobase.fastlms.aahomework.LoginHistoryService;
+import com.zerobase.fastlms.loginhistory.dto.LoginHistoryDto;
+import com.zerobase.fastlms.loginhistory.service.LoginHistoryService;
 import com.zerobase.fastlms.admin.dto.MemberDto;
 import com.zerobase.fastlms.admin.model.MemberParam;
 import com.zerobase.fastlms.admin.model.MemberInput;
 import com.zerobase.fastlms.course.controller.BaseController;
 import com.zerobase.fastlms.member.service.MemberService;
-import com.zerobase.fastlms.util.PageUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

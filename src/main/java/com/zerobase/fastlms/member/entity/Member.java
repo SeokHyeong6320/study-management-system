@@ -1,7 +1,7 @@
 package com.zerobase.fastlms.member.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.zerobase.fastlms.aahomework.LoginHistory;
+import com.zerobase.fastlms.loginhistory.model.LoginHistory;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,7 +12,6 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 

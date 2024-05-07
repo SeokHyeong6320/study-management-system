@@ -1,8 +1,8 @@
-package com.zerobase.fastlms.aahomework;
+package com.zerobase.fastlms.loginhistory.service;
 
-import com.zerobase.fastlms.member.entity.Member;
+import com.zerobase.fastlms.loginhistory.model.LoginHistory;
+import com.zerobase.fastlms.loginhistory.dto.LoginHistoryDto;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public interface LoginHistoryService {

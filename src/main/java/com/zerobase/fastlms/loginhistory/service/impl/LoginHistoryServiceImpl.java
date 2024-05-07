@@ -1,20 +1,22 @@
-package com.zerobase.fastlms.aahomework;
+package com.zerobase.fastlms.loginhistory.service.impl;
 
+import com.zerobase.fastlms.loginhistory.model.LoginHistory;
+import com.zerobase.fastlms.loginhistory.dto.LoginHistoryDto;
+import com.zerobase.fastlms.loginhistory.repository.LoginHistoryRepository;
+import com.zerobase.fastlms.loginhistory.service.LoginHistoryService;
 import com.zerobase.fastlms.member.entity.Member;
 import com.zerobase.fastlms.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class LoginHistoryServiceImpl implements LoginHistoryService{
+public class LoginHistoryServiceImpl implements LoginHistoryService {
 
     private final LoginHistoryRepository loginHistoryRepository;
     private final MemberRepository memberRepository;

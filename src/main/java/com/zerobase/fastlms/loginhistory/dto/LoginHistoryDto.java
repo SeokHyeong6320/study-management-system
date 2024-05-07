@@ -1,5 +1,6 @@
-package com.zerobase.fastlms.aahomework;
+package com.zerobase.fastlms.loginhistory.dto;
 
+import com.zerobase.fastlms.loginhistory.model.LoginHistory;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
