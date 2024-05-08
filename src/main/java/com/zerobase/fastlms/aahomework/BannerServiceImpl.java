@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -45,12 +46,7 @@ public class BannerServiceImpl implements BannerService{
                 .openYn(param.isOpenYn())
                 .build();
 
-
-        if (!file.isEmpty()) {
-            String fullFilePath = fileDir + file.getOriginalFilename();
-            file.transferTo(new File(fullFilePath));
-            banner.setFile(fullFilePath);
-        }
+        saveFile(file, banner);
 
         bannerRepository.save(banner);
     }
@@ -63,6 +59,28 @@ public class BannerServiceImpl implements BannerService{
                         ("couldn't find banner. id->" + id));
 
         findBanner.updateBanner(param);
+    }
+
+    private void saveFile(MultipartFile file, Banner banner) throws IOException {
+
+        if (!file.isEmpty()) {
+
+            String fullFilePath = fileDir + UUID.randomUUID() + getExtractName(file);
+            file.transferTo(new File(fullFilePath));
+            banner.setFile(fullFilePath);
+        }
+    }
+
+    private String getExtractName(MultipartFile file) {
+
+        String originalFilename = file.getOriginalFilename();
+        if (originalFilename == null || !originalFilename.contains(".")) {
+            return "";
+        }
+
+        int position = originalFilename.lastIndexOf(".");
+
+        return originalFilename.substring(position);
     }
 
 
