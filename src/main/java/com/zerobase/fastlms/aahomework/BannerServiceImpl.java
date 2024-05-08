@@ -1,14 +1,20 @@
 package com.zerobase.fastlms.aahomework;
 
+import com.zerobase.fastlms.admin.dto.MemberDto;
+import com.zerobase.fastlms.admin.model.MemberParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -19,19 +25,13 @@ import java.util.stream.Collectors;
 public class BannerServiceImpl implements BannerService{
 
     private final BannerRepository bannerRepository;
+    private final ServletContext servletContext;
+    private final BannerMapper bannerMapper;
 
     @Value("${file.dir}")
     private String fileDir;
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<BannerDto> getAllBanners() {
 
-        return bannerRepository.findAll()
-                .stream()
-                .map(BannerDto::fromEntity)
-                .collect(Collectors.toList());
-    }
 
     @Override
     public void addBanner(
@@ -44,6 +44,7 @@ public class BannerServiceImpl implements BannerService{
                 .target(param.getTarget())
                 .order(param.getOrder())
                 .openYn(param.isOpenYn())
+                .addDt(LocalDateTime.now())
                 .build();
 
         saveFile(file, banner);
@@ -65,12 +66,22 @@ public class BannerServiceImpl implements BannerService{
 
         if (!file.isEmpty()) {
 
-            String fullFilePath = fileDir + UUID.randomUUID() + getExtractName(file);
+//            ClassPathResource resource
+            String realPath = servletContext.getRealPath("/img/banner/");
+
+            String fullFilePath = realPath + UUID.randomUUID() + getExtractName(file);
             file.transferTo(new File(fullFilePath));
-            banner.setFile(fullFilePath);
+
+            int webappIdx = fullFilePath.lastIndexOf("main/webapp");
+            String relativePath = fullFilePath.substring(webappIdx + 11);
+
+            banner.setFile(relativePath);
         }
     }
 
+    /**
+     * 파일명 같을 경우 대비해 파일명 암호화
+     */
     private String getExtractName(MultipartFile file) {
 
         String originalFilename = file.getOriginalFilename();
@@ -81,6 +92,28 @@ public class BannerServiceImpl implements BannerService{
         int position = originalFilename.lastIndexOf(".");
 
         return originalFilename.substring(position);
+    }
+
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<BannerDto> list(BannerParam parameter) {
+
+        long totalCount = bannerMapper.selectListCount(parameter);
+
+        List<BannerDto> list = bannerMapper.selectList(parameter);
+        if (!CollectionUtils.isEmpty(list)) {
+            int i = 0;
+            for (BannerDto dto : list) {
+                dto.setTotalCount(totalCount);
+
+                dto.setSeq(totalCount - parameter.getPageStart() - i);
+                i++;
+            }
+        }
+
+        return list;
+//        return memberRepository.findAll();
     }
 
 

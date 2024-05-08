@@ -2,8 +2,19 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zerobase.fastlms.admin.mapper.MemberMapper">
+<mapper namespace="com.zerobase.fastlms.aahomework.BannerMapper">
 
+    <resultMap id="bannerRM" type="com.zerobase.fastlms.aahomework.BannerDto">
+        <result property="name" column="banner_name"/>
+        <result property="file" column="banner_file"/>
+        <result property="url" column="banner_url"/>
+        <result property="target" column="banner_open_target"/>
+        <result property="order" column="banner_order"/>
+        <result property="open" column="banner_open_yn"/>
+        <result property="addDt" column="banner_add_dt"/>
+    </resultMap>
+
+    <!--
     <sql id="selectListWhere">
         <if test="searchType != null and searchValue != null">
             <choose>
@@ -30,19 +41,20 @@
         </if>
 
     </sql>
+    -->
 
     <select id="selectListCount" resultType="long">
         select count(*)
-        from member
+        from banner
         where 1 = 1
-        <include refid="selectListWhere"/>
+
     </select>
 
-    <select id="selectList" resultType="com.zerobase.fastlms.admin.dto.MemberDto">
+    <select id="selectList" resultType="com.zerobase.fastlms.aahomework.BannerDto" resultMap="bannerRM">
         select *
-        from member
+        from banner
         where 1 = 1
-        <include refid="selectListWhere"/>
+
 
         limit #{pageStart}, #{pageEnd}
     </select>

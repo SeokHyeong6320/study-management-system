@@ -71,8 +71,16 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="x : ${list}">
-
+        <tr th:each="banner : ${bannerList}">
+            <td>
+                <input type="checkbox">
+            </td>
+            <td th:text="${banner.seq}"></td>
+            <td th:text="${banner.name}"></td>
+            <td>
+                <img th:src="@{${banner.file}}" height="80"/>
+            </td>
+            <td th:text="${#temporals.format(banner.addDt, 'yyyy.MM.dd')}"></td>
 
         </tr>
         </tbody>

@@ -34,5 +34,6 @@ mybatis:
 
 
 file:
-  dir: /Users/seokhyeong/Desktop/upload/
+#  dir: /Users/seokhyeong/Desktop/upload/
+  dir: src/main/resources/img/banner/
 

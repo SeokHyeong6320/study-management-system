@@ -3,6 +3,7 @@ package com.zerobase.fastlms.aahomework;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -13,7 +14,7 @@ public class Banner {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "banner_id")
-    private Long id;
+    private Long BannerId;
 
     @Column(name = "banner_name")
     private String name;
@@ -32,8 +33,11 @@ public class Banner {
     @Column(name = "banner_order")
     private int order;
 
-    @Column(name = "banner_opne_yn")
-    private boolean openYn;
+    @Column(name = "banner_open_yn")
+    private Boolean openYn;
+
+    @Column(name = "banner_add_dt")
+    private LocalDateTime addDt;
 
     public void updateBanner(BannerInput param) {
         this.name = param.getName();

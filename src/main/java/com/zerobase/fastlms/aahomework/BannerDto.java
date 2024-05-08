@@ -1,12 +1,14 @@
 package com.zerobase.fastlms.aahomework;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import javax.persistence.Column;
+import java.time.LocalDateTime;
 
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 @Builder
 public class BannerDto {
 
@@ -20,7 +22,12 @@ public class BannerDto {
 
     private int order;
 
-    private boolean openYn;
+    private Boolean openYn;
+
+    private LocalDateTime addDt;
+
+    long totalCount;
+    long seq;
 
 
     public static BannerDto fromEntity(Banner banner) {
@@ -31,7 +38,8 @@ public class BannerDto {
                 .url(banner.getUrl())
                 .target(banner.getTarget())
                 .order(banner.getOrder())
-                .openYn(banner.isOpenYn())
+                .openYn(banner.getOpenYn())
+                .addDt(banner.getAddDt())
                 .build();
     }
 }
