@@ -1,8 +1,9 @@
-package com.zerobase.fastlms.aahomework;
+package com.zerobase.fastlms.banner.dto;
 
+import com.zerobase.fastlms.banner.entity.Banner;
+import com.zerobase.fastlms.banner.BannerTarget;
 import lombok.*;
 
-import javax.persistence.Column;
 import java.time.LocalDateTime;
 
 

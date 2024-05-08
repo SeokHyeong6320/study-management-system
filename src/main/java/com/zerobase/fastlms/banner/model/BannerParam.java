@@ -1,4 +1,4 @@
-package com.zerobase.fastlms.aahomework;
+package com.zerobase.fastlms.banner.model;
 
 import com.zerobase.fastlms.admin.model.CommonParam;
 import lombok.Data;

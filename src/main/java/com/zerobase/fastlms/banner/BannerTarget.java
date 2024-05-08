@@ -1,4 +1,4 @@
-package com.zerobase.fastlms.aahomework;
+package com.zerobase.fastlms.banner;
 
 import lombok.Getter;
 

@@ -1,10 +1,14 @@
-package com.zerobase.fastlms.aahomework;
+package com.zerobase.fastlms.banner.controller;
 
+import com.zerobase.fastlms.banner.*;
+import com.zerobase.fastlms.banner.dto.BannerDto;
+import com.zerobase.fastlms.banner.entity.Banner;
+import com.zerobase.fastlms.banner.model.BannerInput;
+import com.zerobase.fastlms.banner.model.BannerParam;
+import com.zerobase.fastlms.banner.repository.BannerRepository;
+import com.zerobase.fastlms.banner.service.BannerService;
 import com.zerobase.fastlms.course.controller.BaseController;
-import com.zerobase.fastlms.course.model.CourseInput;
 import lombok.RequiredArgsConstructor;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 

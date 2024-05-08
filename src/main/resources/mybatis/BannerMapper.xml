@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zerobase.fastlms.aahomework.BannerMapper">
+<mapper namespace="com.zerobase.fastlms.admin.mapper.BannerMapper">
 
-    <resultMap id="bannerRM" type="com.zerobase.fastlms.aahomework.BannerDto">
+    <resultMap id="bannerRM" type="com.zerobase.fastlms.banner.dto.BannerDto">
         <result property="id" column="banner_id"/>
         <result property="name" column="banner_name"/>
         <result property="file" column="banner_file"/>
@@ -16,34 +16,6 @@
         <result property="delFlag" column="banner_del_flag"/>
     </resultMap>
 
-    <!--
-    <sql id="selectListWhere">
-        <if test="searchType != null and searchValue != null">
-            <choose>
-                <when test="searchType == 'userId'">
-                    and user_id like concat('%', #{searchValue}, '%')
-                </when>
-                <when test="searchType == 'userName'">
-                    and user_name like concat('%', #{searchValue}, '%')
-                </when>
-                <when test="searchType == 'phone'">
-                    and phone like concat('%', #{searchValue}, '%')
-                </when>
-                <otherwise>
-                    and
-                    (
-                    user_id like concat('%', #{searchValue}, '%')
-                    or
-                    user_name like concat('%', #{searchValue}, '%')
-                    or
-                    phone like concat('%', #{searchValue}, '%')
-                    )
-                </otherwise>
-            </choose>
-        </if>
-
-    </sql>
-    -->
 
     <select id="selectListCount" resultType="long">
         select count(*)
@@ -52,7 +24,7 @@
 
     </select>
 
-    <select id="selectList" resultType="com.zerobase.fastlms.aahomework.BannerDto" resultMap="bannerRM">
+    <select id="selectList" resultType="com.zerobase.fastlms.banner.dto.BannerDto" resultMap="bannerRM">
         select *
         from banner
         where 1 = 1

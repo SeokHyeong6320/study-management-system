@@ -1,5 +1,7 @@
-package com.zerobase.fastlms.aahomework;
+package com.zerobase.fastlms.banner.entity;
 
+import com.zerobase.fastlms.banner.model.BannerInput;
+import com.zerobase.fastlms.banner.BannerTarget;
 import lombok.*;
 
 import javax.persistence.*;
