@@ -12,6 +12,8 @@ public class BannerDto {
 
     private String name;
 
+    private String file;
+
     private String url;
 
     private BannerTarget target;
@@ -25,6 +27,7 @@ public class BannerDto {
 
         return BannerDto.builder()
                 .name(banner.getName())
+                .file(banner.getFile())
                 .url(banner.getUrl())
                 .target(banner.getTarget())
                 .order(banner.getOrder())

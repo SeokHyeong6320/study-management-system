@@ -1,9 +1,6 @@
 package com.zerobase.fastlms.aahomework;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -21,6 +18,10 @@ public class Banner {
     @Column(name = "banner_name")
     private String name;
 
+    @Setter
+    @Column(name = "banner_file")
+    private String file;
+
     @Column(name = "banner_file_url")
     private String url;
 
@@ -33,4 +34,13 @@ public class Banner {
 
     @Column(name = "banner_opne_yn")
     private boolean openYn;
+
+    public void updateBanner(BannerInput param) {
+        this.name = param.getName();
+        this.url = param.getUrl();
+        this.target = param.getTarget();
+        this.order = param.getOrder();
+        this.openYn = param.isOpenYn();
+    }
+
 }

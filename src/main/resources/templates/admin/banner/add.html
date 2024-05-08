@@ -2,177 +2,105 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>관리자 화면 </title>
-    <style>
-        .detail table {
-            width: 100%;
-            border-collapse: collapse;
-        }
+    <title>배너 등록 </title>
 
-        .detail table th, .detail table td {
-            border: solid 1px #000;
-        }
-
-        .list table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .list table th {
-            border: solid 1px white;
-            border-bottom: 3px solid white;
-            background-color: #000000;
-            color: white;
-        }
-
-        .hOdd {
-            background-clip: padding-box;
-            background-color: #8d8d8d;
-            border-collapse: collapse;
-            border: solid 1px white;
-            padding-left: 10px;
-        }
-        .hEven {
-            background-clip: padding-box;
-            background-color: #dbdbdb;
-            border-collapse: collapse;
-            border: solid 1px white;
-        }
-
-        .hIndex {
-            width: 10%;
-        }
-        .hDt {
-            width: 15%;
-        }
-        .hIp {
-            width: 15%;
-        }
-
-    </style>
 </head>
+<style>
+    .add-form-bottom a, .add-form-bottom button {
+        border-width: 0;
+        background-color: transparent;
+        text-decoration: underline;
+        font-size: 14px;
+        line-height: 20px;
+        height: 20px;
+        color: #000;
+        cursor: pointer;
+    }
+    .add-form-bottom{
+        text-align: center;
+    }
+
+    .add-form table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    .add-form table th, .add-form table td {
+        border:solid 1px #000;
+    }
+    .idx {
+        font-weight: bold;
+        text-align: center;
+    }
+
+</style>
+
 <body>
 <div th:replace="/fragments/layout.html :: fragment-admin-body-menu"></div>
-<h1>관리자 회원 관리 - 회원 상세 정보</h1>
+<h1 th:if="${isAdd}">배너 관리 - 배너 등록</h1>
+<h1 th:if="${!isAdd}">배너 관리 - 배너 수정</h1>
 
 
-<div class="detail">
+<div class="add-form">
 
-    <table>
-        <tbody>
-        <tr>
-            <th>아이디</th>
-            <td>
-                <p th:text="${member.userId}"></p>
-            </td>
-        </tr>
-        <tr>
-            <th>이름</th>
-            <td>
-                <p th:text="${member.userName}"></p>
-            </td>
-        </tr>
-        <tr>
-            <th>연락처</th>
-            <td>
-                <p th:text="${member.phone}"></p>
-            </td>
-        </tr>
-        <tr>
-            <th>가입일</th>
-            <td>
-                <p th:text="${member.regDt}"></p>
-            </td>
-        </tr>
-        <tr>
-            <th>이메일 인증</th>
-            <td>
-                <p th:text="${member.emailAuthYn}"></p>
-            </td>
-        </tr>
-        <tr>
-            <th>관리자 여부</th>
-            <td>
-                <p th:text="${member.adminYn}"></p>
-            </td>
-        </tr>
-        <tr>
-            <th>회원 상태</th>
-            <td>
-                <p>
-                    현재상태: <span th:text="${member.userStatus}"></span>
-                </p>
-                <div>
-                    <form method="post" action="/admin/member/status.do">
-                        <input th:value="${member.userId}" type="hidden"
-                               name="userId"/>
-                        <select name="userStatus">
-                            <option value="REQ">가입승인중</option>
-                            <option value="ING">정상이용중</option>
-                            <option value="STOP">정지중</option>
-                        </select>
-                        <button type="submit">상태 변경</button>
-                    </form>
-                </div>
-            </td>
-        </tr>
+<form action="/admin/banner/list.do" th:action th:object="${bannerInput}" method="post" enctype="multipart/form-data">
+        <table>
+            <tbody>
+            <tr>
+                <td class="idx">배너명</td>
+                <td>
+                    <input type="text" th:field="*{name}" placeholder="배너명 입력" required>
+                </td>
+            </tr>
+            <tr>
+                <td class="idx">배너 파일</td>
+                <td>
+                    <input type="file" name="file">
+                </td>
+            </tr>
+            <tr>
+                <td class="idx">링크 주소</td>
+                <td>
+                    <input type="text" th:field="*{url}" placeholder="링크 주소 입력" required>
+                </td>
+            </tr>
 
-        <tr>
-            <th>비밀번호 초기화</th>
-            <td>
-                <div>
-                    <form method="post" action="/admin/member/password.do">
-                        <input th:value="${member.userId}" type="hidden"
-                               name="userId"/>
-                        <input type="text" name="password"/>
-                        <button type="submit">비밀번호 초기화</button>
-                    </form>
-                </div>
-            </td>
-        </tr>
+            <tr>
+                <td class="idx">오픈 방법</td>
+                <td>
+                    <select th:field="*{target}" required>
+                        <option value="">오픈 방법 선택</option>
+                        <option th:each="target : ${bannerTarget}"
+                                th:value="${target}"
+                                th:text="${target.getDescription()}"></option>
+                    </select>
+                </td>
+            </tr>
 
+            <tr>
+                <td class="idx">정렬 순서</td>
+                <td>
+                    <input type="text" th:field="*{order}" placeholder="정렬 순서 입력" required>
+                </td>
+            </tr>
 
-        </tbody>
-    </table>
+            <tr>
+                <td class="idx">공개 여부</td>
+                <td>
+                    <input type="checkbox" th:field="*{openYn}" required>공개
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    <br>
+    <div class="add-form-bottom">
+        <button type="submit">배너 등록 하기</button>
 
-    <div>
-        <a href="list.do"> 목록 </a>
-
+        <a href="/admin/banner/list.do">목록 이동</a>
     </div>
+</form>
 
 
-</div>
 
-<!-- 로그인 기록 기능 추가 -->
-<div class="list">
-    <table>
-        <thead>
-        <tr>
-            <th>NO</th>
-            <th>로그인 일자</th>
-            <th>접속 IP</th>
-            <th>접속 UserAgent</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="h, stat : ${#numbers.sequence(loginHistories.size() - 1, 0, -1)}"
-                th:class="${stat.odd ? 'hOdd' : 'hEven'}">
-            <td th:class="hIndex">
-                <p th:text="${loginHistories.size() - stat.index}"></p>
-            </td>
-            <td th:class="hDt">
-                <p th:text="${#temporals.format(loginHistories[h].getLoginAt(), 'yyyy.MM.dd HH:mm')}"></p>
-            </td>
-            <td th:class="hIp">
-                <p th:text="${loginHistories[h].getConnectionIp()}"></p>
-            </td>
-            <td>
-                <p th:text="${loginHistories[h].getConnectionUserAgent()}"></p>
-            </td>
-
-        </tr>
-        </tbody>
-    </table>
 </div>
 
 
