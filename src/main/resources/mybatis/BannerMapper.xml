@@ -5,13 +5,15 @@
 <mapper namespace="com.zerobase.fastlms.aahomework.BannerMapper">
 
     <resultMap id="bannerRM" type="com.zerobase.fastlms.aahomework.BannerDto">
+        <result property="id" column="banner_id"/>
         <result property="name" column="banner_name"/>
         <result property="file" column="banner_file"/>
         <result property="url" column="banner_url"/>
         <result property="target" column="banner_open_target"/>
         <result property="order" column="banner_order"/>
-        <result property="open" column="banner_open_yn"/>
+        <result property="openYn" column="banner_open_yn"/>
         <result property="addDt" column="banner_add_dt"/>
+        <result property="delFlag" column="banner_del_flag"/>
     </resultMap>
 
     <!--

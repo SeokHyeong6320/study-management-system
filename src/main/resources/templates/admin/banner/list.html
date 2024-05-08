@@ -26,6 +26,16 @@
             height: 20px;
             float: left;
         }
+        .list  .buttons a,.list  .buttons button {
+            border-width: 0;
+            background-color: transparent;
+            text-decoration: underline;
+            font-size: 14px;
+            line-height: 20px;
+            height: 20px;
+            color: #000;
+            cursor: pointer;
+        }
 
         .pager {
             margin-top: 20px;
@@ -37,6 +47,54 @@
             color: red;
         }
     </style>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+
+            $('#selectAll').on('click', function () {
+
+                var checked = $(this).is(':checked');
+
+
+                $('#dataList input[type=checkbox]').each(function (k, v) {
+                    $(this).prop('checked', checked);
+                });
+
+
+            });
+
+            $('#deleteButton').on('click', function () {
+
+                var $checked = $('#dataList input[type=checkbox]:checked');
+                if ($checked.length < 1) {
+                    alert(' 삭제할 데이터를 선택해 주세요. ');
+                    return false;
+                }
+
+                if (!confirm(' 선택한 데이터를 삭제하시겠습니까? ')) {
+                    return false;
+                }
+
+                var idList = [];
+                $.each($checked, function (k, v) {
+                    idList.push($(this).val());
+                });
+
+                console.log(idList);
+                console.log(idList.join(','));
+
+                var $deleteForm = $('form[name=deleteForm]');
+                $deleteForm.find('input[name=idList]').val(idList.join(','));
+                $deleteForm.submit();
+
+            });
+
+
+        });
+    </script>
 </head>
 <body>
 <div th:replace="/fragments/layout.html :: fragment-admin-body-menu"></div>
@@ -44,10 +102,11 @@
 
 <div class="list">
 
-    <div>
+    <div class="buttons">
         <a href="/admin/banner/add.do">배너 등록</a>
-        <a>선택 삭제</a>
+        <button id="deleteButton" type="button"> 선택 삭제 </button>
     </div>
+
 
     <table>
         <thead>
@@ -70,13 +129,17 @@
 
         </tr>
         </thead>
-        <tbody>
+        <tbody id="dataList">
         <tr th:each="banner : ${bannerList}">
             <td>
-                <input type="checkbox">
+                <input type="checkbox" th:value="${banner.id}">
             </td>
             <td th:text="${banner.seq}"></td>
-            <td th:text="${banner.name}"></td>
+            <td>
+                <a th:href="|/admin/banner/update.do?id=${banner.id}|"
+                   th:text="${banner.name}"></a>
+            </td>
+            <!--            <td th:text="${banner.name}"></td>-->
             <td>
                 <img th:src="@{${banner.file}}" height="80"/>
             </td>
@@ -92,6 +155,10 @@
 
 
 </div>
+
+<form name="deleteForm" method="post" action="/admin/banner/delete.do">
+    <input type="hidden" name="idList"/>
+</form>
 
 
 </body>

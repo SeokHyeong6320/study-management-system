@@ -58,7 +58,7 @@
                 var checked = $(this).is(':checked');
 
 
-                $('#dataLIst input[type=checkbox]').each(function(k, v) {
+                $('#dataList input[type=checkbox]').each(function(k, v) {
                     $(this).prop('checked', checked);
                 });
 
@@ -67,7 +67,7 @@
 
             $('#deleteButton').on('click', function() {
 
-                var $checked = $('#dataLIst input[type=checkbox]:checked');
+                var $checked = $('#dataList input[type=checkbox]:checked');
                 if ($checked.length < 1) {
                     alert(' 삭제할 데이터를 선택해 주세요. ');
                     return false;
@@ -125,7 +125,7 @@
             </th>
         </tr>
         </thead>
-        <tbody id="dataLIst">
+        <tbody id="dataList">
         <tr th:each="x : ${list}">
             <td>
                 <input type="checkbox" th:value="${x.id}" />

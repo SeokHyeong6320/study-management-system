@@ -60,7 +60,7 @@
             <tr>
                 <td class="idx">링크 주소</td>
                 <td>
-                    <input type="text" th:field="*{url}" placeholder="링크 주소 입력" required>
+                    <input type="url" th:field="*{url}" placeholder="링크 주소 입력" required>
                 </td>
             </tr>
 
@@ -86,14 +86,15 @@
             <tr>
                 <td class="idx">공개 여부</td>
                 <td>
-                    <input type="checkbox" th:field="*{openYn}" required>공개
+                    <input type="checkbox" th:field="*{openYn}">공개
                 </td>
             </tr>
             </tbody>
         </table>
     <br>
     <div class="add-form-bottom">
-        <button type="submit">배너 등록 하기</button>
+        <button th:if="${isAdd}" type="submit">배너 등록 하기</button>
+        <button th:if="${!isAdd}" type="submit">배너 수정 하기</button>
 
         <a href="/admin/banner/list.do">목록 이동</a>
     </div>

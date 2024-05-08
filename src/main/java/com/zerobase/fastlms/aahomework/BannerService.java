@@ -1,7 +1,5 @@
 package com.zerobase.fastlms.aahomework;
 
-import com.zerobase.fastlms.admin.dto.MemberDto;
-import com.zerobase.fastlms.admin.model.MemberParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,8 +10,11 @@ public interface BannerService {
 
     void addBanner(HttpServletRequest request, MultipartFile file, BannerInput param) throws IOException;
 
-    void updateBanner(Long id, BannerInput param);
+    void updateBanner(Long id, MultipartFile file, BannerInput param);
 
     List<BannerDto> list(BannerParam parameter);
 
+    boolean del(String idList);
+
+    List<BannerDto> showBannerMainPage();
 }

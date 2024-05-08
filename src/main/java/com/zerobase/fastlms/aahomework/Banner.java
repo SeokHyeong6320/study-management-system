@@ -39,6 +39,10 @@ public class Banner {
     @Column(name = "banner_add_dt")
     private LocalDateTime addDt;
 
+    @Column(name = "banner_del_flag")
+    private Boolean delFlag;
+
+
     public void updateBanner(BannerInput param) {
         this.name = param.getName();
         this.url = param.getUrl();

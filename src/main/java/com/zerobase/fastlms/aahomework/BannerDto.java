@@ -12,6 +12,8 @@ import java.time.LocalDateTime;
 @Builder
 public class BannerDto {
 
+    private Long id;
+
     private String name;
 
     private String file;
@@ -26,6 +28,8 @@ public class BannerDto {
 
     private LocalDateTime addDt;
 
+    private Boolean delFlag;
+
     long totalCount;
     long seq;
 
@@ -33,6 +37,7 @@ public class BannerDto {
     public static BannerDto fromEntity(Banner banner) {
 
         return BannerDto.builder()
+                .id(banner.getBannerId())
                 .name(banner.getName())
                 .file(banner.getFile())
                 .url(banner.getUrl())

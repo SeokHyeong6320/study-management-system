@@ -1,6 +1,7 @@
 package com.zerobase.fastlms.aahomework;
 
 import com.zerobase.fastlms.course.controller.BaseController;
+import com.zerobase.fastlms.course.model.CourseInput;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -21,6 +22,7 @@ import java.util.List;
 public class BannerController extends BaseController {
 
     private final BannerService bannerService;
+    private final BannerRepository bannerRepository;
 
     @ModelAttribute("bannerTarget")
     public List<BannerTarget> bannerTargets() {
@@ -50,12 +52,6 @@ public class BannerController extends BaseController {
         return "admin/banner/list";
     }
 
-    @ResponseBody
-    @GetMapping("/images/{imgUrl}")
-    public Resource viewImage(@PathVariable String imgUrl)
-            throws MalformedURLException {
-        return new UrlResource("file:" + imgUrl);
-    }
 
     @GetMapping("/add.do")
     public String bannerAddFrom(Model model) {
@@ -82,18 +78,41 @@ public class BannerController extends BaseController {
         return "redirect:/admin/banner/list.do";
     }
 
-    @GetMapping("/update.do")
-    public String bannerUpdateFrom(@RequestParam String id, Model model) {
+   @GetMapping("/update.do")
+    public String bannerUpdateFrom(
+            @RequestParam Long id,
+            Model model
+   ) {
+
+        Banner findBanner = bannerRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException
+                        ("couldn't find banner. id->" + id));
 
         model.addAttribute("isAdd", false);
+        model.addAttribute("bannerInput", findBanner);
 
-        return "admin/banner/update";
+        return "admin/banner/add";
     }
 
     @PostMapping("/update.do")
-    public String bannerUpdate(@RequestParam Long id, BannerInput param) {
+    public String bannerUpdate(
+            @RequestParam Long id,
+            @RequestParam MultipartFile file,
+            BannerInput param
+    ) {
 
-        bannerService.updateBanner(id, param);
+
+        bannerService.updateBanner(id, file, param);
+
+
+        return "redirect:/admin/banner/list.do";
+    }
+
+    @PostMapping("/delete.do")
+    public String del(Model model, HttpServletRequest request
+            , BannerInput parameter) {
+
+        boolean result = bannerService.del(parameter.getIdList());
 
         return "redirect:/admin/banner/list.do";
     }

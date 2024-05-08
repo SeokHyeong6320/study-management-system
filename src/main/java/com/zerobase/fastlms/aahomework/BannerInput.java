@@ -20,5 +20,8 @@ public class BannerInput {
 
     private boolean openYn;
 
+    //삭제를 위한
+    String idList;
+
 
 }
