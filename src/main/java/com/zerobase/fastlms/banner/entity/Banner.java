@@ -1,7 +1,7 @@
 package com.zerobase.fastlms.banner.entity;
 
 import com.zerobase.fastlms.banner.model.BannerInput;
-import com.zerobase.fastlms.banner.BannerTarget;
+import com.zerobase.fastlms.banner.model.BannerTarget;
 import lombok.*;
 
 import javax.persistence.*;
@@ -40,10 +40,6 @@ public class Banner {
 
     @Column(name = "banner_add_dt")
     private LocalDateTime addDt;
-
-    @Column(name = "banner_del_flag")
-    private Boolean delFlag;
-
 
     public void updateBanner(BannerInput param) {
         this.name = param.getName();

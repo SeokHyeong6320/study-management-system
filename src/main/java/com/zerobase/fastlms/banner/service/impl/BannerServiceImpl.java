@@ -3,10 +3,12 @@ package com.zerobase.fastlms.banner.service.impl;
 import com.zerobase.fastlms.admin.mapper.BannerMapper;
 import com.zerobase.fastlms.banner.dto.BannerDto;
 import com.zerobase.fastlms.banner.entity.Banner;
+import com.zerobase.fastlms.banner.exception.BannerException;
 import com.zerobase.fastlms.banner.model.BannerInput;
 import com.zerobase.fastlms.banner.model.BannerParam;
 import com.zerobase.fastlms.banner.repository.BannerRepository;
 import com.zerobase.fastlms.banner.service.BannerService;
+import com.zerobase.fastlms.util.FileSaveUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +31,7 @@ public class BannerServiceImpl implements BannerService {
     private final BannerRepository bannerRepository;
     private final ServletContext servletContext;
     private final BannerMapper bannerMapper;
+    private final FileSaveUtil saveUtil;
 
     @Override
     public void addBanner(
@@ -44,7 +47,7 @@ public class BannerServiceImpl implements BannerService {
                 .addDt(LocalDateTime.now())
                 .build();
 
-        saveFile(file, banner);
+        saveUtil.saveFile(file, banner);
 
         bannerRepository.save(banner);
     }
@@ -53,50 +56,18 @@ public class BannerServiceImpl implements BannerService {
     public void updateBanner(Long id, MultipartFile file, BannerInput param) {
 
         Banner findBanner = bannerRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException
+                .orElseThrow(() -> new BannerException
                         ("couldn't find banner. id->" + id));
 
         try {
             if (!file.isEmpty()) {
-                saveFile(file, findBanner);
+                saveUtil.saveFile(file, findBanner);
             }
         } catch (IOException e) {
-            throw new RuntimeException("occur exception during updating file");
+            throw new BannerException("occur exception during updating file");
         }
 
         findBanner.updateBanner(param);
-    }
-
-    private void saveFile(MultipartFile file, Banner banner) throws IOException {
-
-        if (!file.isEmpty()) {
-
-//            ClassPathResource resource
-            String realPath = servletContext.getRealPath("/img/banner/");
-
-            String fullFilePath = realPath + UUID.randomUUID() + getExtractName(file);
-            file.transferTo(new File(fullFilePath));
-
-            int webappIdx = fullFilePath.lastIndexOf("main/webapp");
-            String relativePath = fullFilePath.substring(webappIdx + 11);
-
-            banner.setFile(relativePath);
-        }
-    }
-
-    /**
-     * 파일명 같을 경우 대비해 파일명 암호화
-     */
-    private String getExtractName(MultipartFile file) {
-
-        String originalFilename = file.getOriginalFilename();
-        if (originalFilename == null || !originalFilename.contains(".")) {
-            return "";
-        }
-
-        int position = originalFilename.lastIndexOf(".");
-
-        return originalFilename.substring(position);
     }
 
 
@@ -117,7 +88,6 @@ public class BannerServiceImpl implements BannerService {
         }
 
         return list;
-//        return memberRepository.findAll();
     }
 
     @Override
@@ -153,16 +123,13 @@ public class BannerServiceImpl implements BannerService {
 
     @Override
     public List<BannerDto> showBannerMainPage() {
-        List<BannerDto> findBanners = bannerRepository.findAll().stream().map(BannerDto::fromEntity).collect(Collectors.toList());
-        findBanners.sort(new Comparator<BannerDto>() {
-            @Override
-            public int compare(BannerDto o1, BannerDto o2) {
-                int order1 = o1.getOrder();
-                int order2 = o2.getOrder();
 
-                return order1 - order2 > 0 ? 1 : -1;
-            }
-        });
+        List<BannerDto> findBanners = bannerRepository.findAll()
+                .stream()
+                .filter(b -> b.getOpenYn().equals(true))
+                .map(BannerDto::fromEntity)
+                .sorted((o1, o2) -> o1.getOrder() - o2.getOrder() > 0 ? 1 : -1)
+                .collect(Collectors.toList());
 
         return findBanners;
     }

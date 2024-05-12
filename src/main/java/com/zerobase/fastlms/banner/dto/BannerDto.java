@@ -1,7 +1,7 @@
 package com.zerobase.fastlms.banner.dto;
 
 import com.zerobase.fastlms.banner.entity.Banner;
-import com.zerobase.fastlms.banner.BannerTarget;
+import com.zerobase.fastlms.banner.model.BannerTarget;
 import lombok.*;
 
 import java.time.LocalDateTime;

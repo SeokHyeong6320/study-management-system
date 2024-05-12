@@ -1,4 +1,4 @@
-package com.zerobase.fastlms.banner;
+package com.zerobase.fastlms.banner.model;
 
 import lombok.Getter;
 

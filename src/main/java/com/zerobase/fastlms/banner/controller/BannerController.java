@@ -1,10 +1,10 @@
 package com.zerobase.fastlms.banner.controller;
 
-import com.zerobase.fastlms.banner.*;
 import com.zerobase.fastlms.banner.dto.BannerDto;
 import com.zerobase.fastlms.banner.entity.Banner;
 import com.zerobase.fastlms.banner.model.BannerInput;
 import com.zerobase.fastlms.banner.model.BannerParam;
+import com.zerobase.fastlms.banner.model.BannerTarget;
 import com.zerobase.fastlms.banner.repository.BannerRepository;
 import com.zerobase.fastlms.banner.service.BannerService;
 import com.zerobase.fastlms.course.controller.BaseController;
