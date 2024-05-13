@@ -37,12 +37,14 @@
 
 <div class="slider">
     <div th:each="banner : ${bannerList}">
-        <a th:href="${banner.url}" th:target="${#strings.equals(banner.target.name(), 'NEW') ? '_blank' : ''}">
+        <a th:href="${banner.url}"
+           th:target="${#strings.equals(banner.target.name(), 'NEW') ? '_blank' : ''}">
             <img th:src="@{${banner.file}}" id="clickable-image">
         </a>
     </div>
 
 </div>
+
 
 </body>
 </html>

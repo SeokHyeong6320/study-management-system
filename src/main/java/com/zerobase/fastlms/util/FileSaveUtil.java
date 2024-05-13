@@ -17,6 +17,9 @@ public class FileSaveUtil {
 
     private final ServletContext servletContext;
 
+    /**
+     * /webapp/img/banner 에 배너 이미지 저장
+     */
     public void saveFile(MultipartFile file, Banner banner) throws IOException {
 
         if (!file.isEmpty()) {
